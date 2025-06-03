@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+env/
+myenv/
+.venv/
+.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+
+# Django specific
+*.log
+db.sqlite3
+
+# IDE specific files
+.hintrc # Based on your structure, this looks like one
+.vscode/
+.idea/
+
+# Operating System files
+.DS_Store # macOS specific
+Thumbs.db # Windows specific

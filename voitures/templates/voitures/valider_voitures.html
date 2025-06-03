@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Valider les Voitures{% endblock %}
+
+{% block content %}
+<h2>Voitures à valider</h2>
+
+{% if voitures %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Marque</th>
+        <th>Catégorie</th>
+        <th>Propriétaire</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for voiture in voitures %}
+        <tr>
+          <td>{{ voiture.nom }}</td>
+          <td>{{ voiture.marque }}</td>
+          <td>{{ voiture.categorie.nom }}</td>
+          <td>{{ voiture.proprietaire.username }}</td>
+          <td>
+            <form method="post" action="{% url 'accepter_voiture' voiture.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-success btn-sm">Accepter</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Aucune voiture en attente de validation.</p>
+{% endif %}
+{% endblock %}

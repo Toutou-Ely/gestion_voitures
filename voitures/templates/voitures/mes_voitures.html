@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Mes Voitures{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4">Mes Voitures</h2>
+  {% if voitures %}
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Marque</th>
+          <th>Categorie</th>
+          <th>Proprietaire</th>
+          <th>Valide</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for voiture in voitures %}
+          <tr>
+            <td>{{ voiture.nom }}</td>
+            <td>{{ voiture.marque }}</td>
+            <td>{{ voiture.categorie.nom }}</td>
+            <td>{{ voiture.proprietaire.username }}</td>
+            <td>{% if voiture.valide %}Oui{% else %}Non{% endif %}</td>
+            <td>
+              <a href="{% url 'modifier_voiture' voiture.pk %}" class="btn btn-sm btn-primary">Modifier</a>
+              <form action="{% url 'supprimer_voiture' voiture.pk %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Vous n'avez aucune voiture enregistrée.</p>
+  {% endif %}
+{% endblock %}
